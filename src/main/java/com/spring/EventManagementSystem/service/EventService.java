@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.EventManagementSystem.dto.EventDTO;
+import com.spring.EventManagementSystem.dto.EventUpdateDTO;
 import com.spring.EventManagementSystem.mappers.EventMapper;
 import com.spring.EventManagementSystem.repository.EventRepository;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
@@ -35,6 +35,8 @@ public class EventService {
         .toArray(EventDTO[]::new);
     }
 
-
+    public void updateEvent(EventUpdateDTO eventUpdateDto) {
+        eventRepository.save(eventMapper.toEvents(eventUpdateDto));
+    }
 
 }
