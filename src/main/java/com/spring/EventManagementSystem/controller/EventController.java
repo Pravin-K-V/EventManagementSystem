@@ -1,16 +1,18 @@
 package com.spring.EventManagementSystem.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.EventManagementSystem.dto.EventDTO;
 import com.spring.EventManagementSystem.dto.EventUpdateDTO;
+import com.spring.EventManagementSystem.dto.UserResponseDTO;
 import com.spring.EventManagementSystem.service.EventService;
 
 @RestController
@@ -40,6 +42,11 @@ public class EventController {
     public ResponseEntity<EventUpdateDTO> updateEvent(@RequestBody EventUpdateDTO eventUpdateDto){
         eventService.updateEvent(eventUpdateDto);
         return ResponseEntity.ok(eventUpdateDto);
+    }
+
+    @GetMapping("/getAllEnrolledUsers")
+    public ResponseEntity<ArrayList<UserResponseDTO>> getAllEnrolledUsers(@RequestParam Long eventId){
+        return ResponseEntity.ok(eventService.getAllEnrolledUsers(eventId));
     }
 
 }

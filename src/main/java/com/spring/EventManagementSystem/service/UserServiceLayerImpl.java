@@ -27,7 +27,7 @@ public class UserServiceLayerImpl implements UserServiceLayer{
     }
 
     @Override
-    public User findById(int id){
+    public User findById(Long id){
 
         Optional<User> userList = myUserJPARepository.findById(id);
         if(userList.isPresent()){
