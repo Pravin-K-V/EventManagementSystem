@@ -10,6 +10,6 @@ import com.spring.EventManagementSystem.entity.Registration;
 @Repository
 public interface RegistrationJPARepository extends JpaRepository<Registration, Long> {
 
-    ArrayList<Long> findAllByEventId(Long eventId);
+    ArrayList<Registration> findAllByEventId(Long eventId);
     
 }

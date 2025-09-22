@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.spring.EventManagementSystem.dto.EventDTO;
 import com.spring.EventManagementSystem.dto.EventUpdateDTO;
 import com.spring.EventManagementSystem.dto.UserResponseDTO;
+import com.spring.EventManagementSystem.entity.Registration;
 import com.spring.EventManagementSystem.mappers.EventMapper;
 import com.spring.EventManagementSystem.repository.EventRepository;
 
@@ -48,9 +49,9 @@ public class EventService {
     }
 
     public ArrayList<UserResponseDTO> getAllEnrolledUsers(Long eventId) {
-        ArrayList<Long> userIds = regService.getAllUsersRegistered(eventId);
+        ArrayList<Registration> userIds = regService.getAllUsersRegistered(eventId);
         ArrayList<UserResponseDTO> userList = userIds.stream()
-                                                    .map(id -> userServiceLayer.findById(id))
+                                                    .map(id -> userServiceLayer.findById(id.getUserId()))
                                                     .map(user -> eventMapper.toUserResponseDTO(user))
                                                     .collect(Collectors.toCollection(ArrayList::new));
         return userList;
