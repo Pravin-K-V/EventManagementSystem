@@ -10,6 +10,7 @@ import com.spring.EventManagementSystem.dto.EventDTO;
 import com.spring.EventManagementSystem.dto.EventUpdateDTO;
 import com.spring.EventManagementSystem.dto.UserResponseDTO;
 import com.spring.EventManagementSystem.entity.Registration;
+import com.spring.EventManagementSystem.exception.EventNotFoundException;
 import com.spring.EventManagementSystem.mappers.EventMapper;
 import com.spring.EventManagementSystem.repository.EventRepository;
 
@@ -35,7 +36,7 @@ public class EventService {
     }
 
     public EventDTO getEvent(Long id) {
-        return eventMapper.toEventDto(eventRepository.findById(id).orElse(null));
+        return eventMapper.toEventDto(eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException("No event named in this id")));
     }
 
     public EventDTO[] getAllEvents() {
