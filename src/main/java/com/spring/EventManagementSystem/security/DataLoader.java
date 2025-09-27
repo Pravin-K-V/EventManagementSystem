@@ -1,6 +1,6 @@
 package com.spring.EventManagementSystem.security;
 
-import com.spring.EventManagementSystem.entity.User;
+import com.spring.EventManagementSystem.entity.Users;
 import com.spring.EventManagementSystem.repository.UserJPARepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ public class DataLoader {
             if (userRepository.count() == 0) {
                 // Create an admin
                 userRepository.save(
-                        new User(
+                        new Users(
                                 null,
                                 "admin",            
                                 "admin@example.com",

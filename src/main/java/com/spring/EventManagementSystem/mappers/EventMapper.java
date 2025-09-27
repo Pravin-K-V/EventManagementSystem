@@ -1,5 +1,6 @@
 package com.spring.EventManagementSystem.mappers;
 
+import com.spring.EventManagementSystem.entity.Users;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -9,7 +10,6 @@ import com.spring.EventManagementSystem.dto.RegistrationDTO;
 import com.spring.EventManagementSystem.dto.UserResponseDTO;
 import com.spring.EventManagementSystem.entity.Events;
 import com.spring.EventManagementSystem.entity.Registration;
-import com.spring.EventManagementSystem.entity.User;
 
 @Mapper(componentModel = "spring")
 
@@ -29,10 +29,10 @@ public interface EventMapper {
 
     RegistrationDTO toRegistrationDTO(Registration reg);
 
-    UserResponseDTO toUserResponseDTO(User user);
+    UserResponseDTO toUserResponseDTO(Users users);
 
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "role", ignore = true)
-    User toUser(UserResponseDTO userResponseDTO);
+    Users toUser(UserResponseDTO userResponseDTO);
     
 }

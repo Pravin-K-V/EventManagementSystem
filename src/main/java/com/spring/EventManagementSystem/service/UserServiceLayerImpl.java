@@ -1,9 +1,8 @@
 package com.spring.EventManagementSystem.service;
 
 import com.spring.EventManagementSystem.component.CSVDataLoader;
-import com.spring.EventManagementSystem.entity.User;
 import com.spring.EventManagementSystem.repository.UserJPARepository;
-
+import com.spring.EventManagementSystem.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -24,14 +23,14 @@ public class UserServiceLayerImpl implements UserServiceLayer{
     }
 
     @Override
-    public List<User> find(){
+    public List<Users> find(){
         return myUserJPARepository.findAll();
     }
 
     @Override
-    public User findById(Long id){
+    public Users findById(long id){
 
-        Optional<User> userList = myUserJPARepository.findById(id);
+        Optional<Users> userList = myUserJPARepository.findById(id);
         if(userList.isPresent()){
             return userList.get();
         }
@@ -41,7 +40,7 @@ public class UserServiceLayerImpl implements UserServiceLayer{
     }
 
     @Override
-    public User getByUserName(String username) {
+    public Users getByUserName(String username) {
         return myUserJPARepository.findByemail(username);
     }
 

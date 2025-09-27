@@ -7,13 +7,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.spring.EventManagementSystem.entity.User;
+import com.spring.EventManagementSystem.entity.Users;
 
 public class CustomUserDetail implements UserDetails{
 
-    private User user;
+    private Users user;
 
-    public CustomUserDetail(User user){
+    public CustomUserDetail(Users user){
         this.user = user;
     }
 
