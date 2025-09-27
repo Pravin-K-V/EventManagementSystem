@@ -23,5 +23,6 @@ public class Users {
     private String password;
     private String phoneNumber;
     private String role;
+    private boolean active;
 
 }
