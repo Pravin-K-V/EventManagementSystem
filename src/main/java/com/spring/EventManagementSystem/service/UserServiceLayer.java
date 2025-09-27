@@ -4,10 +4,13 @@ import com.spring.EventManagementSystem.entity.User;
 
 import java.util.List;
 
+
 public interface UserServiceLayer {
 
     public User findById(Long id);
 
     public List<User> find();
+
+    public User getByUserName(String username);
 
 }
