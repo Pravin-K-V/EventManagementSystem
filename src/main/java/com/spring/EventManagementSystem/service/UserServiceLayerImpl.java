@@ -1,6 +1,6 @@
 package com.spring.EventManagementSystem.service;
 
-import com.spring.EventManagementSystem.component.CSVDataLoader;
+// import com.spring.EventManagementSystem.component.CSVDataLoader;
 import com.spring.EventManagementSystem.repository.UserJPARepository;
 import com.spring.EventManagementSystem.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,12 @@ import java.util.Optional;
 @Service
 public class UserServiceLayerImpl implements UserServiceLayer{
 
-    private final CSVDataLoader csvDataLoader;
+    // private final CSVDataLoader csvDataLoader;
     public UserJPARepository myUserJPARepository;
 
     @Autowired
-    public UserServiceLayerImpl(CSVDataLoader csvDataLoader,UserJPARepository userJPARepository) {
-        this.csvDataLoader = csvDataLoader;
+    public UserServiceLayerImpl(/*CSVDataLoader csvDataLoader,*/UserJPARepository userJPARepository) {
+        // this.csvDataLoader = csvDataLoader;
         this.myUserJPARepository = userJPARepository;
     }
 
