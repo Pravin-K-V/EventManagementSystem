@@ -13,4 +13,8 @@ public interface UserServiceLayer {
 
     public Users getByUserName(String username);
 
+    public Users registerUser(Users user);
+
+    public String verify(Users user);
+
 }

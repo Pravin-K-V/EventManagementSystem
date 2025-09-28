@@ -7,17 +7,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.spring.EventManagementSystem.entity.Users;
-import com.spring.EventManagementSystem.service.UserServiceLayer;
+import com.spring.EventManagementSystem.repository.UserJPARepository;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService{
 
     @Autowired
-    public UserServiceLayer userService;
+    public UserJPARepository myUserJPARepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = userService.getByUserName(username);
+        Users user = myUserJPARepository.findByemail(username);
         return new CustomUserDetail(user);
     }
     

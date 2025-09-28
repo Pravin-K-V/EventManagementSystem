@@ -4,7 +4,10 @@ package com.spring.EventManagementSystem.service;
 import com.spring.EventManagementSystem.repository.UserJPARepository;
 import com.spring.EventManagementSystem.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +20,19 @@ public class UserServiceLayerImpl implements UserServiceLayer{
     public UserJPARepository myUserJPARepository;
 
     @Autowired
+    public AuthenticationManager authenticationManager;
+
+    @Autowired
+    public PasswordEncoder passwordEncoder;
+
+    @Autowired
     public UserServiceLayerImpl(/*CSVDataLoader csvDataLoader,*/UserJPARepository userJPARepository) {
         // this.csvDataLoader = csvDataLoader;
         this.myUserJPARepository = userJPARepository;
     }
+
+    @Autowired
+    public JWTService jwtService;
 
     @Override
     public List<Users> find(){
@@ -42,6 +54,24 @@ public class UserServiceLayerImpl implements UserServiceLayer{
     @Override
     public Users getByUserName(String username) {
         return myUserJPARepository.findByemail(username);
+    }
+
+    @Override
+    public Users registerUser(Users user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        myUserJPARepository.save(user);
+        return user;
+    }
+
+    @Override
+    public String verify(Users user) {
+        Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+        if(auth.isAuthenticated()){
+            return jwtService.generateToken(user.getEmail());
+        }
+        else {
+            throw new RuntimeException("Invalid login credentials");
+        }
     }
 
 }
