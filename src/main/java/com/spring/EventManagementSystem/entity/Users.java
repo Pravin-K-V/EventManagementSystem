@@ -7,13 +7,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "users")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +23,6 @@ public class Users {
     private String password;
     private String phoneNumber;
     private String role;
+    private boolean active;
 
 }

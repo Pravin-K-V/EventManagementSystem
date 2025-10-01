@@ -33,6 +33,7 @@ public interface EventMapper {
 
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "role", ignore = true)
+    @Mapping(target = "active", ignore = true)
     Users toUser(UserResponseDTO userResponseDTO);
     
 }
