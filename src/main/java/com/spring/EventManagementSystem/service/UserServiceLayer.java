@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserServiceLayer {
 
-    public Users findById(int id);
+    public Users findById(Long id);
 
     public List<Users> find();
 
