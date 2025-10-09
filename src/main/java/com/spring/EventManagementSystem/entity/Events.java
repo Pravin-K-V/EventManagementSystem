@@ -22,7 +22,7 @@ public class Events {
     private String location;
     private String date;
     private String time;
-    private String organizerId;
+    private Long organizerId;
     private String status;
 
 }

@@ -14,5 +14,5 @@ public class EventUpdateDTO {
     private String location;
     private String date;
     private String time;
-    private String organizerId;
+    private long organizerId;
 }

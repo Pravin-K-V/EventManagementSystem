@@ -1,10 +1,11 @@
 package com.spring.EventManagementSystem.controller;
 
+import com.spring.EventManagementSystem.dto.UserResponseDTO;
 import com.spring.EventManagementSystem.entity.Users;
 import com.spring.EventManagementSystem.service.UserServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,19 +15,24 @@ public class UserController {
     @Autowired
     private UserServiceLayer myServiceLayer;
 
-    @GetMapping("/users")
-    public String displayUserById(){
+    @GetMapping("/admin/users")
+    public ResponseEntity<List<UserResponseDTO>>getAllUsers(){
+        return ResponseEntity.ok(myServiceLayer.find());
+    }
 
-        List<Users> usersList = myServiceLayer.find();
-        for(Users tempUsers : usersList){
-            System.out.println("User name"+ tempUsers.getName());
-            System.out.println("email"+ tempUsers.getEmail());
-            System.out.println("phone number"+ tempUsers.getPhoneNumber());
-            System.out.println("id"+ tempUsers.getId());
-        }
+    @GetMapping("/admin/users/{id}")
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id){
+        return ResponseEntity.ok(myServiceLayer.findById(id));
+    }
 
-        return "users added and displayed";
+    @PostMapping("/register")
+    public ResponseEntity<Users> registerUser(@RequestBody Users user){
+        return ResponseEntity.ok(myServiceLayer.registerUser(user));
+    }
 
+    @PostMapping("/login")
+    public String login(@RequestBody Users user){
+        return myServiceLayer.verify(user);
     }
 
 }

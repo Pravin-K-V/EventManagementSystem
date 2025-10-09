@@ -4,11 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import com.spring.EventManagementSystem.dto.EventDTO;
 import com.spring.EventManagementSystem.dto.EventUpdateDTO;
@@ -26,8 +23,8 @@ public class EventController {
         return ResponseEntity.ok(registrationDto);
     }
 
-    @GetMapping("/getEvent")
-    public ResponseEntity<EventDTO> getRegisteredEvent(@RequestParam Long id) {
+    @GetMapping("/getEvent/{id}")
+    public ResponseEntity<EventDTO> getRegisteredEvent(@PathVariable Long id) {
         EventDTO eventDto = eventService.getEvent(id);
         return ResponseEntity.ok(eventDto);
     }
@@ -44,9 +41,10 @@ public class EventController {
         return ResponseEntity.ok(eventUpdateDto);
     }
 
-    @GetMapping("/getAllEnrolledUsers")
-    public ResponseEntity<ArrayList<UserResponseDTO>> getAllEnrolledUsers(@RequestParam Long eventId){
-        return ResponseEntity.ok(eventService.getAllEnrolledUsers(eventId));
+    @PreAuthorize("@eventSecurity.isOwner(authentication, #id)")
+    @GetMapping("/getAllEnrolledUsers/{id}")
+    public ResponseEntity<ArrayList<UserResponseDTO>> getAllEnrolledUsers(@PathVariable("id") Long id){
+        return ResponseEntity.ok(eventService.getAllEnrolledUsers(id));
     }
 
 }
