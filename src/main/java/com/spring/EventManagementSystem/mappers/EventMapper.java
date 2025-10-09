@@ -11,6 +11,8 @@ import com.spring.EventManagementSystem.dto.UserResponseDTO;
 import com.spring.EventManagementSystem.entity.Events;
 import com.spring.EventManagementSystem.entity.Registration;
 
+import java.util.Optional;
+
 @Mapper(componentModel = "spring")
 
 public interface EventMapper {

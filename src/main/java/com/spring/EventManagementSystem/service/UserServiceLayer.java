@@ -1,5 +1,6 @@
 package com.spring.EventManagementSystem.service;
 
+import com.spring.EventManagementSystem.dto.UserResponseDTO;
 import com.spring.EventManagementSystem.entity.Users;
 
 import java.util.List;
@@ -7,9 +8,9 @@ import java.util.List;
 
 public interface UserServiceLayer {
 
-    public Users findById(long id);
+    public UserResponseDTO findById(Long id);
 
-    public List<Users> find();
+    public List<UserResponseDTO> find();
 
     public Users getByUserName(String username);
 

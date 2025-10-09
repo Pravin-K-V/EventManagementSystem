@@ -53,7 +53,6 @@ public class EventService {
         ArrayList<Registration> userIds = regService.getAllUsersRegistered(eventId);
         ArrayList<UserResponseDTO> userList = userIds.stream()
                                                     .map(id -> userServiceLayer.findById(id.getUserId()))
-                                                    .map(user -> eventMapper.toUserResponseDTO(user))
                                                     .collect(Collectors.toCollection(ArrayList::new));
         return userList;
 

@@ -1,6 +1,8 @@
 package com.spring.EventManagementSystem.service;
 
-// import com.spring.EventManagementSystem.component.CSVDataLoader;
+ import com.spring.EventManagementSystem.component.CSVDataLoader;
+import com.spring.EventManagementSystem.dto.UserResponseDTO;
+import com.spring.EventManagementSystem.mappers.EventMapper;
 import com.spring.EventManagementSystem.repository.UserJPARepository;
 import com.spring.EventManagementSystem.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceLayerImpl implements UserServiceLayer{
 
-    // private final CSVDataLoader csvDataLoader;
+    private final CSVDataLoader csvDataLoader;
     public UserJPARepository myUserJPARepository;
 
     @Autowired
@@ -26,25 +29,30 @@ public class UserServiceLayerImpl implements UserServiceLayer{
     public PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceLayerImpl(/*CSVDataLoader csvDataLoader,*/UserJPARepository userJPARepository) {
-        // this.csvDataLoader = csvDataLoader;
+    public UserServiceLayerImpl(CSVDataLoader csvDataLoader ,UserJPARepository userJPARepository) {
+        this.csvDataLoader = csvDataLoader;
         this.myUserJPARepository = userJPARepository;
     }
 
     @Autowired
     public JWTService jwtService;
 
+    @Autowired
+    private EventMapper eventMapper;
+
     @Override
-    public List<Users> find(){
-        return myUserJPARepository.findAll();
+    public List<UserResponseDTO> find(){
+        return myUserJPARepository.findAll()
+                .stream()
+                .map(user-> new UserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getPhoneNumber()))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Users findById(long id){
-
-        Optional<Users> userList = myUserJPARepository.findById(id);
-        if(userList.isPresent()){
-            return userList.get();
+    public UserResponseDTO findById(Long id){
+        Optional<Users> user = myUserJPARepository.findById(id);
+        if(user.isPresent()){
+            return eventMapper.toUserResponseDTO(user.get());
         }
         else{
             throw new RuntimeException("User is not found for the given user id: "+id);
